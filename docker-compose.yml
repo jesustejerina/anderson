@@ -1,0 +1,77 @@
+version: '3.7'
+#Create by Jesus Tejerina Rivera
+services:
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    restart: always
+    ports:
+      - 8888:80
+    volumes:
+      - ./backend/src:/var/www/html
+      - ./backend/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    working_dir: /var/www/html
+    depends_on:
+      - backend
+      - mariadb
+    networks:
+      - my_network
+
+  mariadb:
+    image: mariadb:10.6
+    container_name: mariadb
+    environment:
+      - MARIADB_USER=anderson
+      - MARIADB_DATABASE=anderson
+      - MARIADB_ROOT_PASSWORD=anderson
+      - MARIADB_SKIP_TEST_DB=yes
+    ports:
+      - 4306:3306
+    volumes:
+      - ./backend/mariadb:/var/lib/mysql
+    networks:
+      - my_network
+
+  backend:
+    image: jesusitodocker/lrvl10:1.1
+    container_name: backend
+    volumes:
+      - ./backend/src:/var/www/html
+    working_dir: /var/www/html
+    ports:
+      - 9000:80
+    depends_on:
+      - frontend
+    networks:
+      - my_network
+
+  phpmyadmin:
+    image: phpmyadmin:5.0
+    container_name: phpmyadmin
+    links:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8080:80
+    depends_on:
+      - mariadb
+    networks:
+      - my_network
+
+  frontend:
+    image: jesusitodocker/node-axios:1.0
+    container_name: frontend
+    volumes:
+      - ./frontend/project:/home/app
+    ports:
+      - 5173:5173
+    tty: true
+    networks:
+      - my_network
+
+networks:
+  my_network:
