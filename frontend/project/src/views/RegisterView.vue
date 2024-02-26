@@ -65,7 +65,7 @@
           </div>
           <div class="mt-2">
             <input
-              id="password"
+              id="password_confirmation"
               name="password_confirmation"
               type="password"
               autocomplete="current-password"

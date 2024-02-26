@@ -129,10 +129,8 @@ const login = () => {
             store.access_token = r.access_token;
             store.user = r.user; //aquí carga los permisos
             store.Autenticado = true;
-            //console.log(loginStore.user?.permissions)
-            router.push("/dashboard");
+            router.push({ name: "autenticados" });
           } else {
-            //console.log("response else")
             snackbar.add({
               type: "error",
               title: "ERROR1",
@@ -151,7 +149,7 @@ const login = () => {
     })
     .catch((error) => {
       let r = error.response.data;
-      console.log(r);
+      //console.log(r);
       snackbar.add({
         type: "error",
         title: "ERROR3",

@@ -1,21 +1,44 @@
 /* eslint-disable */
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import AutenticadoLayout from "../layouts/AutenticadoLayout.vue";
+import menu_autenticado from "../components/MenuAutenticado.vue";
+import menu_publico from "../components/MenuPublico.vue";
 import axios from "axios";
 import { useStore } from "../store/pinia";
 var Autenticado = false;
 const login = {
   path: "/login",
   name: "login",
-  component: () => import("../views/LoginView.vue"),
+  beforeEnter: (to, from, next) => {
+    if (Autenticado) {
+      next("/autenticados/dashboard");
+    } else {
+      next();
+    }
+  },
+  components: {
+    default: () => import("../views/LoginView.vue"),
+    menu_activo: menu_publico
+  }
 };
 const register = {
-  path: "/register",
+  path: "/autenticados/register",
   name: "register",
-  component: () => import("../views/RegisterView.vue"),
+  beforeEnter: (to,from,next) => {
+    if (Autenticado) {
+      next();
+    } else {
+      next("/");
+    }
+  },
+  components:{
+    default: () => import("../views/RegisterView.vue"),
+    menu_activo: menu_autenticado
+  }
 };
 const dashboard = {
-  path: "/dashboard",
+  path: "/autenticados/dashboard",
   name: "dashboard",
   beforeEnter: (to,from,next) => {
     if (Autenticado) {
@@ -24,10 +47,13 @@ const dashboard = {
       next("/");
     }
   },
-  component: () => import("../views/DashboardView.vue"),
+  components:{
+    default: () => import("../views/DashboardView.vue"),
+    menu_activo: menu_autenticado
+  }
 };
 const clientes = {
-  path: "/clientes",
+  path: "/autenticados/clientes",
   name: "clientes",
   beforeEnter: (to,from,next) => {
     if (Autenticado) {
@@ -36,10 +62,13 @@ const clientes = {
       next("/");
     }
   },
-  component: () => import("../views/ClientesView.vue"),
+  components:{
+    default: () => import("../views/ClientesView.vue"),
+    menu_activo: menu_autenticado
+  }
 };
 const pagos = {
-  path: "/pagos",
+  path: "/autenticados/pagos",
   name: "pagos",
   beforeEnter: (to,from,next) => {
     if (Autenticado) {
@@ -48,24 +77,47 @@ const pagos = {
       next("/");
     }
   },
-  component: () => import("../views/PagosView.vue"),
+  components: {
+    default: () => import("../views/PagosView.vue"),
+    menu_activo: menu_autenticado
+  }
+};
+const home = {
+  path: "/",
+  name: "home",
+  components: {
+    default: HomeView,
+    menu_activo: menu_publico
+  }
+};
+const about = {
+  path: "/about",
+  name: "about",
+  components: {
+    default: () => import("../views/AboutView.vue"),
+    menu_activo: menu_publico
+  }
+};
+const autenticados = {
+  path: "/autenticados",
+  name: "autenticados",
+  redirect: "/autenticados/dashboard",
+  components: {
+    default: AutenticadoLayout,
+    menu_activo: menu_autenticado
+  },
+  children: [
+    dashboard,
+    clientes,
+    pagos,
+    register
+  ]
 };
 const routes = [
-  dashboard,
-  register,
+  home,
   login,
-  clientes,
-  pagos,
-  {
-    path: "/",
-    name: "home",
-    component: HomeView,
-  },
-  {
-    path: "/about",
-    name: "about",
-    component: () => import("../views/AboutView.vue"),
-  },
+  about,
+  autenticados
 ];
 
 const router = createRouter({
