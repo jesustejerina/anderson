@@ -1,6 +1,10 @@
 <template>
   <nav>
     <router-link to="/">Inicio</router-link> |
+    <router-link to="/login">Login</router-link> |
+    <router-link to="/register">Registrarse</router-link> |
+    <router-link to="/clientes">Clientes</router-link> |
+    <router-link to="/pagos">Pagos</router-link> |
     <router-link to="/about">Acerca de</router-link>
   </nav>
   <router-view />

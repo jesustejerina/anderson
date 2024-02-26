@@ -2,18 +2,26 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+//Rutas Privadas:
+Route::middleware('auth:sanctum')->group(function (){
+    
+    Route::controller(AuthController::class)->group(function(){
+        //Route::post('/registrar', 'registrar')->name('registrar');
+        Route::get('/esta-autenticado','autenticado')->name('autenticado');
+        Route::post('/logout', 'logout')->name('logout');
+        Route::get('/get-user-info','getInfoUser')->name('get-user-info');
+        Route::get('dame-usuarios','getUsers')->name('dame-usuarios');
+        Route::get('activar-usuario/{iduser}','activeUser')->name('activar-usuario');
+        Route::get('borrar-usuario/{iduser}','borrarUsuario')->name('borrar-usuario');
+    });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+
 });
+
+//Rutas públicas:
+Route::post('login' ,[AuthController::class , 'login'])->name('login');
+Route::get('/register', [AuthController::class,'register'])->name('register'); //temporal
+Route::post('/registrar', [AuthController::class,'registrar'])->name('registrar'); //temporal

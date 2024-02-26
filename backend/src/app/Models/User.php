@@ -23,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
+        'activo'
     ];
 
     /**
@@ -43,4 +45,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function cliente(){
+        return $this->hasMany(cliente::class,'id');
+    }
+
+    public function pago(){
+        return $this->hasMany(pago::class,'id');
+    }
 }

@@ -14,4 +14,12 @@ class Authenticate extends Middleware
     {
         return $request->expectsJson() ? null : route('login');
     }
+
+    // Esto lo agregué para personalizar el mensaje cuando intentan ingresar a una ruta no autenticado.
+    protected function unauthenticated($request, array $guards) : Json
+    {
+        abort(response()->json([
+            'status' => 'ERROR',
+            'message' => 'No autorizado',], 401));
+    }
 }

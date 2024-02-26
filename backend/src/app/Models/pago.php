@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class pago extends Model
 {
     use HasFactory;
+    protected $table='pagos';
+    protected $fillable = [
+        'forma_pago',
+        'detalle',
+        'monto',
+        'user_id',
+        'cliente_id',
+        'activo'
+    ];
+    public function User(){
+        return $this->belongsTo(User::class,'id');
+    }
 }
