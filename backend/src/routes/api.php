@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\PagosController;
 
 //Rutas Privadas:
 Route::middleware('auth:sanctum')->group(function (){
@@ -15,6 +17,20 @@ Route::middleware('auth:sanctum')->group(function (){
         Route::get('dame-usuarios','getUsers')->name('dame-usuarios');
         Route::get('activar-usuario/{iduser}','activeUser')->name('activar-usuario');
         Route::get('borrar-usuario/{iduser}','borrarUsuario')->name('borrar-usuario');
+    });
+
+    Route::controller(ClientesController::class)->group(function(){
+        Route::get('/dame-clientes','dameClientes')->name('dame-clientes');
+        Route::post('/agregar-cliente','agregarCliente')->name('agregar-cliente');
+        Route::delete('/borrar-cliente/{id}','borrarCliente')->name('borrar-cliente');
+        Route::patch('/actualizar-cliente','actualizarCliente')->name('actualizar-cliente');
+    });
+
+    Route::controller(PagosController::class)->group(function(){
+        Route::get('/dame-pagos/{id}','damePagos')->name('dame-pagos');
+        Route::post('/agregar-pago','agregarPago')->name('agregar-pago');
+        Route::delete('/borrar-pago/{id}','borrarPago')->name('borrar-pago');
+        Route::patch('/actualizar-pago','actualizarPago')->name('actualizar-pago');
     });
 
 

@@ -23,12 +23,14 @@ const logout = async () => {
   await axios
     .post(apiUrl, {}, config)
     .then((response) => {
-      if (response.data.status == "OK") {
+      let r = response.data;
+      if (r.status == "OK") {
         console.log("Logout OK");
       }
     })
     .catch((error) => {
-      console.log("Logout error", error.response.data.message);
+      let e = error.response.data;
+      console.log("Logout error", e.message);
     });
 };
 </script>

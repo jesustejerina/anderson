@@ -2801,6 +2801,83 @@ csstype@^3.1.3:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.3.tgz#d80ff294d114fb0e6ac500fbf85b60137d7eff81"
   integrity sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==
 
+datatables.net-dt@^1.13.0:
+  version "1.13.10"
+  resolved "https://registry.yarnpkg.com/datatables.net-dt/-/datatables.net-dt-1.13.10.tgz#85604f0db9ceeb67228047bebbaa9cdc4ac652d4"
+  integrity sha512-7Yujk3WGZjUBkQJzlRS2ResAtVXkODXLG73MEsC3tabyCiVXH42eA/79jwDBidmZWD8uvAfpAzWHTxjba4+QIQ==
+  dependencies:
+    datatables.net "1.13.8"
+    jquery ">=1.7"
+
+datatables.net-dt@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/datatables.net-dt/-/datatables.net-dt-2.0.0.tgz#abe6e9c50f1e281e6d8d34c38a8275255330476f"
+  integrity sha512-nagIToKl+RHWMmrqTZUj/0fvKNhZoKuA9L0pidiyaSTxlwh3hfXXZXPgnVAyN0y5OrZvhQrIo0G/3r1phFGpeg==
+  dependencies:
+    datatables.net "2.0.0"
+    jquery ">=1.7"
+
+datatables.net-responsive-dt@^2.4.0:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/datatables.net-responsive-dt/-/datatables.net-responsive-dt-2.5.1.tgz#5f1a5ab084ebc88edb010f2e7cd685de0dd6133d"
+  integrity sha512-suFoSSb2v3Lj7B4aoSxdyVfRPYb89WtyxCdH46HkE9mFZ9sJoicazsTKOwpWdwxZ+JT3vae0b7bKM2lOpwYxFw==
+  dependencies:
+    datatables.net-dt "^1.13.0"
+    datatables.net-responsive "2.5.1"
+    jquery ">=1.7"
+
+datatables.net-responsive@2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/datatables.net-responsive/-/datatables.net-responsive-2.5.1.tgz#9747a3c6e6b59abd33174e1890356357151bb8c0"
+  integrity sha512-hyJb2faIzEWUX5Yn4HOSq/6NNB9SXDVbI4OU9ny+XU/2ghZEz4676spOgzpDHTdWvCfM+t1mbUsT70fDiTTr9w==
+  dependencies:
+    datatables.net "^1.13.0"
+    jquery ">=1.7"
+
+datatables.net-responsive@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/datatables.net-responsive/-/datatables.net-responsive-3.0.0.tgz#230382ed4058079164dd3cdfeb2dd08712428e16"
+  integrity sha512-6O+hZREfZ6bj86bEFOVYH76OgqETX7t0EsfKWwKuo8gpYe50SE9QPcy7DKsuO1swqluwS+442QIVsLfIXoBnNg==
+  dependencies:
+    datatables.net ">=2.0.0"
+    jquery ">=1.7"
+
+datatables.net-select@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/datatables.net-select/-/datatables.net-select-2.0.0.tgz#7c484184d4a6ac660474a580f92ff53ae0532432"
+  integrity sha512-sKMNoTlJejk5FfZo6Niwdn2/bHSDYiIt5WuMSsXzMGiCTIPtnDiYjNHF843vToKiTTsi+6T0zUuWddHLGPRsxA==
+  dependencies:
+    datatables.net ">=2.0.0"
+    jquery ">=1.7"
+
+datatables.net-vue3@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/datatables.net-vue3/-/datatables.net-vue3-2.1.3.tgz#e5a027a36758be351f534ddfed3819c29a80e0d6"
+  integrity sha512-9A81RiszsaH5sia01+E8tusagXbzeYVMSD0I+tzqx7V2iqVVZJgVVZM+4hwGa5skSJiHOUCRl3kp2TLF9uLf9A==
+  dependencies:
+    datatables.net-responsive-dt "^2.4.0"
+
+datatables.net@1.13.8:
+  version "1.13.8"
+  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-1.13.8.tgz#05a2fb5a036b0b65b66d1bb1eae0ba018aaea8a3"
+  integrity sha512-2pDamr+GUwPTby2OgriVB9dR9ftFKD2AQyiuCXzZIiG4d9KkKFQ7gqPfNmG7uj9Tc5kDf+rGj86do4LAb/V71g==
+  dependencies:
+    jquery ">=1.7"
+
+datatables.net@2.0.0, datatables.net@>=2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-2.0.0.tgz#232c45855d78b0019ccea854eaf044e1927118d3"
+  integrity sha512-HKndZD/qHNZyAhAyC1Bs8S+H652HedZK76xYAjzXR3xDohvxomJ8iWevsoRV4MvHSPgx8GQl3PAdBNpUvn0xJg==
+  dependencies:
+    jquery ">=1.7"
+
+datatables.net@^1.13.0:
+  version "1.13.10"
+  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-1.13.10.tgz#4527e2b5428394732331c8b7db8fa20a56c0cc7b"
+  integrity sha512-lVjpXGX9VzOpiPYnJ/KxOsYMAVa3oc3UniYGGo6pLBVCyajzMo80yisgXRz8J392wkZOc3bpp6VPs2pDbpKlyw==
+  dependencies:
+    jquery ">=1.7"
+
 debounce@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.1.tgz#38881d8f4166a5c5848020c11827b834bcb3e0a5"
@@ -4129,6 +4206,11 @@ joi@^17.4.0:
     "@sideway/address" "^4.1.5"
     "@sideway/formula" "^3.0.1"
     "@sideway/pinpoint" "^2.0.0"
+
+jquery@>=1.7:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
+  integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
 
 js-message@1.0.7:
   version "1.0.7"
