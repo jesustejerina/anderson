@@ -11,17 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pagos', function (Blueprint $table) {
-            $table->id();
-            $table->string('forma_pago', 50)->nullable(false);
-            $table->string('detalle', 200)->nullable(false);
-            $table->decimal('monto', 10, 2)->nullable(false);
-            $table->unsignedBigInteger('user_id')->nullable(false);
-            $table->unsignedBigInteger('cliente_id')->nullable(false);
+        Schema::table('pagos', function (Blueprint $table) {
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedTinyInteger('activo')->default(1);
-            $table->timestamps();
         });
     }
 
@@ -30,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pagos');
+        Schema::table('pagos', function (Blueprint $table) {
+            $table->dropForeign(['cliente_id']);
+            $table->dropForeign(['user_id']);
+        });
     }
 };

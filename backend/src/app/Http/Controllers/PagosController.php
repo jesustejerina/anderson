@@ -73,4 +73,23 @@ class PagosController extends Controller
             ])->setStatusCode(200, 'No hay pagos para el cliente seleccionado');
         }
     }
+
+    public function borrarPago($pago_id)
+    {
+        try {
+            $pago = pago::find($pago_id);
+            $pago->delete();
+            $this->recalcularTotalPagos($pago->cliente_id);
+            return response()->json([
+                'status' => 'OK',
+                'message' => 'Pago Borrado',
+            ])->setStatusCode(200, 'Pago Borrado');
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'ERROR',
+                'message' => 'No se pudo borrar el pago',
+                'error' => $e->getMessage(),
+            ])->setStatusCode(401, 'No se pudo borrar el pago');
+        }
+    }
 }
