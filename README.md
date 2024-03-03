@@ -27,6 +27,7 @@ __BASE DE DATOS__
   - __permissions:__ Contine los permisos del sistema.
   - __role_has_permissions:__ Contiene los permisos según cada rol.
   - Otras tablas auxiliares y complementarias para roles y permisos.
+
 __FUNCIONALIDADES__
 - Login
 - Logout
