@@ -1,11 +1,10 @@
 <template>
-  <div class="container mx-auto">
-    <h2>header</h2>
+  <div class="bg-green-600">
+    <h2 class="text-left text-white pl-3">
+      <strong>Sistema de Pago de Clientes</strong>
+    </h2>
   </div>
 </template>
-
-<script setup></script>
-
 <style>
 nav {
   padding: 30px;
@@ -17,6 +16,6 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #20b873;
 }
 </style>

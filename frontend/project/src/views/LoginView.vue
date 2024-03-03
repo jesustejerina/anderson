@@ -1,26 +1,24 @@
 <template>
-  <div
-    class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8"
-  >
+  <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img
-        class="mx-auto h-10 w-auto"
+        class="mx-auto h-20 w-auto"
         src="../assets/logo01.png"
         alt="Ing. Jesús Tejerina Rivera"
       />
       <h2
-        class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
+        class="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
       >
         ACCESO
       </h2>
     </div>
 
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <div class="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
       <div>
         <label
           for="email"
           class="block text-sm text-left font-medium leading-6 text-gray-900"
-          >Email</label
+          >Email:</label
         >
         <div class="mt-2">
           <input
@@ -35,20 +33,13 @@
         </div>
       </div>
 
-      <div>
+      <div class="mt-2">
         <div class="flex items-center justify-between">
           <label
             for="password"
             class="block text-sm font-medium leading-6 text-gray-900"
-            >Contraseña</label
+            >Contraseña:</label
           >
-          <div class="text-sm">
-            <a
-              href="#"
-              class="font-semibold text-indigo-600 hover:text-indigo-500"
-              >Olvidó su Clave?</a
-            >
-          </div>
         </div>
         <div class="mt-2">
           <input
@@ -63,25 +54,15 @@
         </div>
       </div>
 
-      <div>
+      <div class="mt-4 flex justify-center">
         <button
           type="submit"
           @click="login"
-          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          class="w-32 rounded-md bg-indigo-500 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800"
         >
           LOGIN
         </button>
       </div>
-
-      <p class="mt-10 text-center text-sm text-gray-500">
-        No esta registrado?
-        {{ " " }}
-        <router-link
-          class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          to="/register"
-          >Regístrese</router-link
-        >
-      </p>
     </div>
   </div>
   <div>
@@ -122,12 +103,10 @@ const login = () => {
       axios
         .post(apiURL, data, config)
         .then((response) => {
-          //console.log("response.data")
-          //console.log(response.data)
           let r = response.data;
           if (r.status == "OK") {
             store.access_token = r.access_token;
-            store.user = r.user; //aquí carga los permisos
+            store.user = r.user;
             store.Autenticado = true;
             router.push({ name: "autenticados" });
           } else {

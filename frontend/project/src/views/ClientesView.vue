@@ -1,12 +1,12 @@
 <template>
   <div class="container mx-auto">
-    <div class="mt-4 mb-3">
+    <div>
       <p class="text-2xl font-bold">CLIENTES</p>
       <button
         type="button"
         class="mt-3 inline-flex w-full justify-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-800 sm:mt-0 sm:w-auto"
         @click="agregarCliente"
-        v-if="!mostrar_botones"
+        v-if="!mostrar_botones && permisos.includes('clientes_agregar')"
       >
         Agregar Cliente
       </button>
@@ -16,26 +16,27 @@
       <DataTable
         ref="tabla_clientes"
         :data="clientes"
-        :columns="columnas"
-        :options="opciones"
+        :columns="columnas_clientes"
+        :options="opciones_clientes"
         @select="filaSeleccionada()"
         @deselect="filaDeseleccionada()"
-        class="display"
+        class="display compact"
       >
       </DataTable>
     </div>
-    <div class="max-w-lg mx-auto mt-5" v-if="mostrar_botones">
-      <div class="inline-flex shadow-md rounded-md mb-5" role="group">
+    <div class="max-w-lg mx-auto" v-if="mostrar_botones">
+      <div class="inline-flex shadow-md rounded-md mt-3 mb-2" role="group">
         <button
           type="button"
           class="rounded-l-lg border border-gray-200 bg-green-700 text-white text-sm font-bold px-4 py-2 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"
           @click="agregarPago"
+          v-if="permisos.includes('pagos_agregar')"
         >
           Agregar Pago
         </button>
 
         <button
-          v-if="mostrarBtnBorrarPago"
+          v-if="mostrarBtnBorrarPago && permisos.includes('pagos_borrar')"
           type="button"
           class="rounded-r-md border border-gray-200 bg-red-700 text-white text-sm font-bold px-4 py-2 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"
           @click="dialogBorrarPago = true"
@@ -51,10 +52,10 @@
           ref="tabla_pagos"
           :data="pagos"
           :columns="columnas_pagos"
-          :options="opciones"
+          :options="opciones_pagos"
           @select="filaSeleccionadaPagos()"
           @deselect="filaDeseleccionadaPagos()"
-          class="display"
+          class="display compact"
         >
         </DataTable>
       </div>
@@ -459,10 +460,12 @@
 </template>
 <script setup>
 import { useSnackbar } from "vue3-snackbar";
-
 import axios from "axios";
 import { onMounted, ref, reactive } from "vue";
 import { useStore } from "../store/pinia";
+const store = useStore();
+const permisos = store.user.permissions;
+
 import DataTable from "datatables.net-vue3";
 import DataTablesCore from "datatables.net";
 import "datatables.net-select";
@@ -477,12 +480,47 @@ import {
 
 DataTable.use(DataTablesCore);
 const snackbar = useSnackbar();
-const columnas = [
-  { data: "id", title: "ID" },
-  { data: "nombres", title: "Nombres", width: "150px" },
-  { data: "apellidos", title: "Apellidos", width: "150px" },
-  { data: "email", title: "Email", width: "100px" },
-  { data: "total_pagos", title: "Total Pagos", width: "120px" },
+const columnas_clientes = [
+  {
+    data: "id",
+    title: "ID",
+    width: "50px",
+    render: (data) => {
+      return '<span class="text-xs">' + data + "</span>";
+    },
+  },
+  {
+    data: "nombres",
+    title: "Nombres",
+    width: "150px",
+    render: (data) => {
+      return '<span class="text-xs">' + data + "</span>";
+    },
+  },
+  {
+    data: "apellidos",
+    title: "Apellidos",
+    width: "150px",
+    render: (data) => {
+      return '<span class="text-xs">' + data + "</span>";
+    },
+  },
+  {
+    data: "email",
+    title: "Email",
+    width: "100px",
+    render: (data) => {
+      return '<span class="text-xs">' + data + "</span>";
+    },
+  },
+  {
+    data: "total_pagos",
+    title: "Total",
+    width: "120px",
+    render: (data) => {
+      return '<span class="text-xs">' + data + "</span>";
+    },
+  },
   {
     data: null,
     title: "",
@@ -508,24 +546,68 @@ const tabla_pagos = ref();
 const opcion_cliente = (cliente_id) => {
   cliente_id_seleccionado.value = cliente_id;
   if (boton_cliente_presionado.value == "btn-borrar-cliente") {
-    dialogBorrarCliente.value = true;
+    if (permisos.includes("clientes_borrar")) {
+      dialogBorrarCliente.value = true;
+    } else {
+      snackbar.add({
+        type: "warning",
+        title: "CUIDADO!!",
+        text: "No tiene los permisos para borrar clientes",
+      });
+    }
   }
   if (boton_cliente_presionado.value == "btn-modificar-cliente") {
-    dialogAgregarCliente.value = true;
-    dialogModificarCliente.value = true;
-    tituloDialogAgregarCliente.value = "ACTUALIZAR CLIENTE";
-    dameCliente();
+    if (permisos.includes("clientes_borrar")) {
+      dialogAgregarCliente.value = true;
+      dialogModificarCliente.value = true;
+      tituloDialogAgregarCliente.value = "ACTUALIZAR CLIENTE";
+      dameCliente();
+    } else {
+      snackbar.add({
+        type: "warning",
+        title: "CUIDADO!!",
+        text: "No tiene los permisos para modificar clientes",
+      });
+    }
   }
 };
 
 const columnas_pagos = [
-  { data: "id", title: "ID" },
-  { data: "forma_pago", title: "Forma", width: "150px" },
-  { data: "detalle", title: "Detalle", width: "200px" },
-  { data: "monto", title: "Monto", width: "100px" },
+  {
+    data: "id",
+    title: "ID",
+    width: "50px",
+    render: (data) => {
+      return '<span class="text-xs">' + data + "</span>";
+    },
+  },
+  {
+    data: "forma_pago",
+    title: "Forma",
+    width: "150px",
+    render: (data) => {
+      return '<span class="text-xs">' + data + "</span>";
+    },
+  },
+  {
+    data: "detalle",
+    title: "Detalle",
+    width: "200px",
+    render: (data) => {
+      return '<span class="text-xs">' + data + "</span>";
+    },
+  },
+  {
+    data: "monto",
+    title: "Monto",
+    width: "100px",
+    render: (data) => {
+      return '<span class="text-xs">' + data + "</span>";
+    },
+  },
 ];
 
-const opciones = {
+const opciones_clientes = {
   responsive: true,
   select: true,
   bPaginate: false,
@@ -533,8 +615,24 @@ const opciones = {
   bSelect: true,
   bFilter: false,
   scrollCollapse: true,
-  scrollY: "400px",
+  scrollY: "500px",
   scrollX: "60vw",
+  processing: true,
+  oLanguage: {
+    sEmptyTable: "Obteniendo datos...",
+  },
+};
+
+const opciones_pagos = {
+  responsive: true,
+  select: true,
+  bPaginate: false,
+  bInfo: false,
+  bSelect: true,
+  bFilter: false,
+  scrollCollapse: true,
+  scrollY: "250px",
+  scrollX: "40vw",
   processing: true,
   oLanguage: {
     sEmptyTable: "Obteniendo datos...",
@@ -618,7 +716,7 @@ const seleccionar_fila = () => {
 */
 
 const clientes = ref(null);
-const store = useStore();
+
 const mostrar_botones = ref(false);
 
 const dialogAgregarCliente = ref(false);

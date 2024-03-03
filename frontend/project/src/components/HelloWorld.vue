@@ -1,8 +1,7 @@
 <template>
   <div>
     <h1 class="text-2xl font-bold">{{ msg }}</h1>
-    <p>FrontEnd y BackEnd</p>
-    <h3 class="mt-3">Con agrado...</h3>
+    <p>Ing. Jesús Tejerina Rivera</p>
   </div>
 </template>
 

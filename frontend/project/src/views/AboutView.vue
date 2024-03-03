@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
-    <h1>Ing. Jesús Tejerina R.</h1>
+  <div class="mt-5">
+    <p class="text-2xl">Ing. Jesús Tejerina R.</p>
   </div>
 </template>

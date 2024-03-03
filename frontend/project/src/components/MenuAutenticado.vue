@@ -1,10 +1,19 @@
 <template>
-  <nav class="m-0 p-0">
-    <router-link :to="{ name: 'dashboard' }">Dashboard</router-link> |
-    <router-link :to="{ name: 'clientes' }">Clientes</router-link> |
-    <router-link :to="{ name: 'pagos' }">Pagos</router-link> |
-    <router-link :to="{ name: 'register' }">Registrar</router-link> |
-    <router-link :to="{ name: 'home' }" @click="logout">Logout</router-link>
+  <nav class="p-0 mt-6">
+    <router-link :to="{ name: 'dashboard' }">Dashboard | </router-link>
+    <router-link
+      v-if="permisos.includes('menu_clientes')"
+      :to="{ name: 'clientes' }"
+      >&nbsp;Clientes |</router-link
+    >
+    <router-link
+      v-if="permisos.includes('menu_registrar')"
+      :to="{ name: 'register' }"
+      >&nbsp;Registrar |</router-link
+    >
+    <router-link :to="{ name: 'home' }" @click="logout"
+      >&nbsp;Logout</router-link
+    >
   </nav>
 </template>
 <script setup>
@@ -12,6 +21,7 @@ import axios from "axios";
 import { useStore } from "@/store/pinia";
 const store = useStore();
 var user_token = store.access_token;
+const permisos = store.user.permissions;
 const logout = async () => {
   let apiUrl = process.env.VUE_APP_URL_LOGOUT;
   let config = {
@@ -25,7 +35,9 @@ const logout = async () => {
     .then((response) => {
       let r = response.data;
       if (r.status == "OK") {
-        console.log("Logout OK");
+        store.access_token = "";
+        store.user = "";
+        store.Autenticado = false;
       }
     })
     .catch((error) => {

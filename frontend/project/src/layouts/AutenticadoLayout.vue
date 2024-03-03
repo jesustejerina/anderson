@@ -1,8 +1,14 @@
 <template>
-  <div class="container mx-auto">
-    <AppHeader />
-    <router-view />
-    <AppFooter />
+  <div class="flex flex-col h-screen">
+    <header class="fixed top-0 w-full">
+      <AppHeader />
+    </header>
+    <main class="mt-3 mb-2">
+      <router-view />
+    </main>
+    <footer class="fixed bottom-0 w-full">
+      <AppFooter />
+    </footer>
   </div>
 </template>
 
@@ -10,5 +16,3 @@
 import AppHeader from "../components/AppHeader.vue";
 import AppFooter from "../components/AppFooter.vue";
 </script>
-
-<style></style>

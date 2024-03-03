@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div class="flex justify-center">
+    <div class="flex justify-center mt-5">
       <img
         class="w-20"
         alt="Ing. Jesús Tejerina Rivera"
         src="../assets/logo01.png"
       />
     </div>
-    <div>
-      <HelloWorld msg="Prueba para Anderson Ramos" />
+    <div class="mt-3">
+      <HelloWorld msg="Sistema Pago Clientes" />
     </div>
   </div>
 </template>
